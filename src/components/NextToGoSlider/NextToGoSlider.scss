@@ -1,0 +1,22 @@
+.NextToGoSlider {
+  .sliderContainer {
+    overflow: hidden;
+    margin: 1em;
+    border: 2px solid #ececec;
+
+    .listBox {
+      display: flex;
+      flex-basis: 600px;
+      .sliderCard {
+        border-right: 1px solid #ececec;
+        height: 100%;
+        padding: 1em;
+        display: flex;
+
+        .race-name {
+          margin: 0;
+        }
+      }
+    }
+  }
+}
