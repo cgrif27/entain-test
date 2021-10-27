@@ -1,22 +1,55 @@
+@import '../../scss/theme';
+
 .NextToGoSlider {
+  margin: 1em;
+  > h1 {
+    font-size: 1em;
+    text-transform: uppercase;
+    font-weight: 400;
+  }
   .sliderContainer {
     overflow: hidden;
-    margin: 1em;
-    border: 2px solid #ececec;
-
+    border: 2px solid $lightGray;
+    position: relative;
+    box-shadow: 0px 4px 11px -6px #434343;
     .listBox {
       display: flex;
-      flex-basis: 600px;
-      .sliderCard {
-        border-right: 1px solid #ececec;
-        height: 100%;
-        padding: 1em;
-        display: flex;
+      width: calc(100% - 3em);
+      margin: 0 auto;
+      flex-basis: calc(100% / 5 - 2em);
+      transition: transform 400ms;
+    }
 
-        .race-name {
-          margin: 0;
+    .moveRaceBtn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 100%;
+      background-color: $lightGray;
+      color: $darkGray;
+      border: none;
+      z-index: 2;
+      cursor: pointer;
+      transition: filter 200ms;
+
+      &:not(:disabled):hover {
+        filter: brightness(80%);
+      }
+
+      &:disabled {
+        cursor: default;
+        > svg {
+          opacity: 0.2;
         }
       }
+    }
+
+    .right {
+      right: 0;
+    }
+
+    .left {
+      left: 0;
     }
   }
 }

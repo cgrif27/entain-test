@@ -1,21 +1,13 @@
-import axios from "axios";
-import React, { useEffect } from "react";
-import "./App.scss";
-import NextToGoSlider from "./components/NextToGoSlider/NextToGoSlider";
+import './App.scss';
+import { RaceStore } from './context/RaceContext';
+import NextToGo from './pages/NextToGo';
 
 function App() {
-  useEffect(() => {
-    axios
-      .get("https://api.neds.com.au/rest/v1/racing/?method=nextraces&count=10")
-      .then((res) => {
-        console.log(res);
-      });
-  }, []);
-
   return (
     <div className="App">
-      <p>Next to go</p>
-      <NextToGoSlider />
+      <RaceStore>
+        <NextToGo />
+      </RaceStore>
     </div>
   );
 }

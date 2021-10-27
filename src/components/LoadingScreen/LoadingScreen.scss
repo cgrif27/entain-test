@@ -1,0 +1,23 @@
+@import '../../scss//theme.scss';
+
+.LoadingScreen {
+  background-color: $primary;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  top: 0;
+
+  opacity: 1;
+
+  &.loaded {
+    opacity: 0;
+  }
+
+  > .spinner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

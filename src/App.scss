@@ -1,0 +1,9 @@
+@import './scss/theme.scss';
+body {
+  color: $darkGray;
+  background-color: #fafafa;
+
+  p {
+    margin: 0;
+  }
+}
