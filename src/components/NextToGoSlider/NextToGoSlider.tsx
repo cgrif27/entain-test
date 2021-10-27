@@ -4,6 +4,45 @@ import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 import useElementWidth from '../../hooks/useElementWidth';
 import RaceContext from '../../context/RaceContext';
 import SliderCard from '../SliderCard/SliderCard';
+import styled from 'styled-components';
+import { ScreenSizes } from '../../types/ScreenSizes';
+const numSliderElement = () => {
+  const width = window.innerWidth;
+  // Mobile
+  if (width <= ScreenSizes.Mobile) return 2;
+  // Tablet
+  else if (width <= ScreenSizes.Tablet) return 3;
+  // Desktop
+  return 5;
+};
+
+const numSliderElementsStyle = (numSliderElements: number) => {
+  return `calc(100% / ${numSliderElements} - 2em)`;
+};
+
+interface ListBoxProps {
+  numSliderElements: number;
+  sliderContainerWidth: number;
+  sliderIndex: number;
+}
+
+const ListBox = styled.div<ListBoxProps>`
+  display: flex;
+  width: calc(100% - 3em);
+  margin: 0 auto;
+  flex-basis: ${(props) => numSliderElementsStyle(props.numSliderElements)};
+  transition: transform 400ms;
+  transform: ${(props) =>
+    `translateX(-${props.sliderContainerWidth * props.sliderIndex}px)`};
+
+  @media only screen and (min-width: ${ScreenSizes.Tablet}px) {
+    flex-basis: ${(props) => numSliderElementsStyle(props.numSliderElements)};
+  }
+
+  @media only screen and (min-width: ${ScreenSizes.Desktop}px) {
+    flex-basis: ${(props) => numSliderElementsStyle(props.numSliderElements)};
+  }
+`;
 
 const NextToGoSlider = (): ReactElement => {
   const [sliderIndex, setSliderIndex] = useState(0);
@@ -28,8 +67,10 @@ const NextToGoSlider = (): ReactElement => {
     });
   };
 
+  const numElements = numSliderElement();
+
   const numSlides = Math.ceil(
-    nextToGo?.next_to_go_ids ? nextToGo?.next_to_go_ids.length / 5 : 0
+    nextToGo?.next_to_go_ids ? nextToGo?.next_to_go_ids.length / numElements : 0
   );
 
   return (
@@ -43,11 +84,11 @@ const NextToGoSlider = (): ReactElement => {
           <BsChevronLeft />
         </button>
         {nextToGo && (
-          <div
-            className="listBox"
-            style={{
-              transform: `translateX(-${sliderContainerWidth * sliderIndex}px)`,
-            }}>
+          <ListBox
+            numSliderElements={numElements}
+            sliderIndex={sliderIndex}
+            sliderContainerWidth={sliderContainerWidth}
+            className="listBox">
             {nextToGo.next_to_go_ids.map((id) => {
               const race = nextToGo.race_summaries[id];
 
@@ -59,13 +100,13 @@ const NextToGoSlider = (): ReactElement => {
                 />
               );
             })}
-          </div>
+          </ListBox>
         )}
         <button
           ref={rightButtonRef}
           className="moveRaceBtn right"
           onClick={() => increaseSlider(true, numSlides)}
-          disabled={sliderIndex >= 1}>
+          disabled={sliderIndex >= numSlides - 1}>
           <BsChevronRight />
         </button>
       </div>

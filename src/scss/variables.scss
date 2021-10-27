@@ -1,0 +1,10 @@
+// Screen Sizes
+$mobile: 425px;
+$tablet: 600px;
+$desktop: 1000px;
+
+:export {
+  mobile: $mobile;
+  tablet: $tablet;
+  desktop: $desktop;
+}
